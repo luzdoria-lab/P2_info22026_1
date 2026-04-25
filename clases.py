@@ -52,7 +52,7 @@ class SIATA:
         print("\nAPPLY (*2):\n", self.df[col1].apply(lambda x: x * 2).head())
 
         print("\nMAP (+1):\n", self.df[col1].map(lambda x: x + 1).head())
-        
+
         print("\nSUMA:\n", (self.df[col1] + self.df[col2]).head())
 
     def remuestreo(self, columna):
@@ -69,4 +69,16 @@ class SIATA:
         plt.tight_layout()
         plt.savefig(f"{columna}_resample.png")
         plt.show()
+
+class EEG:
+    def __init__(self, ruta):
+        self.data = sio.loadmat(ruta)
+
+    def mostrar_llaves(self):
+        print("\nLlaves del archivo:")
+        for key in self.data.keys():
+            print(key)
+
+    def obtener_matriz(self, key):
+        return self.data[key]
 
