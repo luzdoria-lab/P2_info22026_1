@@ -2,6 +2,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.io as sio
+def validar_entero(valor, minimo=None, maximo=None):
+    try:
+        valor = int(valor)
+        if minimo is not None and valor < minimo:
+            return None
+        if maximo is not None and valor > maximo:
+            return None
+        return valor
+    except:
+        return None
 
 class SIATA:
     def __init__(self, ruta):
