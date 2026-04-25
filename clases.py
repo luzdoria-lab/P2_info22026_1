@@ -1,0 +1,40 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.io as sio
+
+class SIATA:
+    def __init__(self, ruta):
+        self.df = pd.read_csv(ruta)
+
+    def info_basica(self):
+        print("\nINFO:")
+        self.df.info()
+        print("\nDESCRIBE:\n", self.df.describe())
+
+    def convertir_fecha(self, columna):
+        self.df[columna] = pd.to_datetime(self.df[columna])
+        self.df.set_index(columna, inplace=True)
+
+    def eliminar_nulos(self):
+        connulos = len(self.df)
+        self.df.dropna(inplace=True)
+        sinnulos = len(self.df)
+        print(f"\nEliminados: {connulos - sinnulos} registros con nulos.")
+
+    def graficos(self, columna):
+        fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+
+        self.df[columna].plot(ax=axs[0], title="Plot")
+        axs[0].set_ylabel("Valor")
+
+        self.df[columna].plot.box(ax=axs[1])
+        axs[1].set_title("Boxplot")
+
+        self.df[columna].hist(ax=axs[2])
+        axs[2].set_title("Histograma")
+
+        plt.tight_layout()
+        plt.savefig(f"{columna}_graficos.png")
+        plt.show()
+
