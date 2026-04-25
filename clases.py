@@ -48,3 +48,25 @@ class SIATA:
         plt.savefig(f"{columna}_graficos.png")
         plt.show()
 
+    def operaciones(self, col1, col2):
+        print("\nAPPLY (*2):\n", self.df[col1].apply(lambda x: x * 2).head())
+
+        print("\nMAP (+1):\n", self.df[col1].map(lambda x: x + 1).head())
+        
+        print("\nSUMA:\n", (self.df[col1] + self.df[col2]).head())
+
+    def remuestreo(self, columna):
+        diario = self.df.resample('D').mean()
+        mensual = self.df.resample('M').mean()
+        trimestral = self.df.resample('Q').mean()
+
+        fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+
+        diario[columna].plot(ax=axs[0], title="Diario")
+        mensual[columna].plot(ax=axs[1], title="Mensual")
+        trimestral[columna].plot(ax=axs[2], title="Trimestral")
+
+        plt.tight_layout()
+        plt.savefig(f"{columna}_resample.png")
+        plt.show()
+
