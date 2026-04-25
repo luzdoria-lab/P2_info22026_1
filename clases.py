@@ -81,4 +81,40 @@ class EEG:
 
     def obtener_matriz(self, key):
         return self.data[key]
+    
+def sumar_canales(self, matriz, canales, inicio, fin):
+        matriz_2d = matriz.reshape(matriz.shape[0], -1)
+
+        c1, c2, c3 = canales
+
+        suma = (
+            matriz_2d[c1, inicio:fin] +
+            matriz_2d[c2, inicio:fin] +
+            matriz_2d[c3, inicio:fin]
+        )
+
+        t = np.arange(inicio, fin) / 1000  # 1kHz
+
+        plt.figure(figsize=(10, 6))
+
+        plt.subplot(2, 1, 1)
+        plt.plot(t, matriz_2d[c1, inicio:fin], label=f"Canal {c1}")
+        plt.plot(t, matriz_2d[c2, inicio:fin], label=f"Canal {c2}")
+        plt.plot(t, matriz_2d[c3, inicio:fin], label=f"Canal {c3}")
+        plt.xlabel("Segundos")
+        plt.ylabel("µV")
+        plt.title("Canales originales")
+        plt.legend()
+
+        plt.subplot(2, 1, 2)
+        plt.plot(t, suma, label="Suma", color="black")
+        plt.xlabel("Segundos")
+        plt.ylabel("µV")
+        plt.title("Suma de canales")
+        plt.legend()
+
+        plt.tight_layout()
+        plt.savefig("eeg_suma.png")
+        plt.show()
+ 
 
