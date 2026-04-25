@@ -117,4 +117,34 @@ def sumar_canales(self, matriz, canales, inicio, fin):
         plt.savefig("eeg_suma.png")
         plt.show()
  
+def estadisticas(self, matriz):
+        promedio = np.mean(matriz, axis=0)
+        std = np.std(matriz, axis=0)
 
+        plt.figure(figsize=(10, 6))
+
+        plt.subplot(2, 1, 1)
+        plt.stem(promedio)
+        plt.title("Promedio")
+
+        plt.subplot(2, 1, 2)
+        plt.stem(std)
+        plt.title("Desviación estándar")
+
+        plt.tight_layout()
+        plt.savefig("eeg_stats.png")
+        plt.show()
+
+class Gestor:
+    def __init__(self):
+        self.objetos = []
+
+    def agregar(self, obj):
+        self.objetos.append(obj)
+
+    def listar(self):
+        for i, obj in enumerate(self.objetos):
+            print(f"{i}: {type(obj).__name__}")
+
+    def buscar(self, tipo):
+        return [o for o in self.objetos if isinstance(o, tipo)]
