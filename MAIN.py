@@ -14,7 +14,7 @@ def menu_principal():
 
         if opcion == "1":
             ruta = input("Ingrese el nombre del archivo (ej: siata_enero.csv): ")
-            siata_obj = SIATA(ruta)
+            
             try:
 
                 siata_obj = SIATA(ruta)

@@ -56,18 +56,18 @@ class SIATA:
         print("\nSUMA:\n", (self.df[col1] + self.df[col2]).head())
 
     def remuestreo(self, columna):
-        diario = self.df.resample('D').mean()
-        mensual = self.df.resample('M').mean()
-        trimestral = self.df.resample('Q').mean()
+        df_num = self.df.select_dtypes(include=['number'])
 
-        fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+        diario = df_num.resample('D').mean()
+        mensual = df_num.resample('ME').mean()
+        trimestral = df_num.resample('QE').mean()
 
-        diario[columna].plot(ax=axs[0], title="Diario")
-        mensual[columna].plot(ax=axs[1], title="Mensual")
-        trimestral[columna].plot(ax=axs[2], title="Trimestral")
+        diario[columna].plot(title="Diario")
+        mensual[columna].plot(title="Mensual")
+        trimestral[columna].plot(title="Trimestral")
 
         plt.tight_layout()
-        plt.savefig(f"{columna}_resample.png")
+        plt.savefig("resample.png")
         plt.show()
 
 class EEG:
