@@ -82,7 +82,7 @@ class EEG:
     def obtener_matriz(self, key):
         return self.data[key]
     
-def sumar_canales(self, matriz, canales, inicio, fin):
+    def sumar_canales(self, matriz, canales, inicio, fin):
         matriz_2d = matriz.reshape(matriz.shape[0], -1)
 
         c1, c2, c3 = canales
@@ -117,22 +117,32 @@ def sumar_canales(self, matriz, canales, inicio, fin):
         plt.savefig("eeg_suma.png")
         plt.show()
  
-def estadisticas(self, matriz):
-        promedio = np.mean(matriz, axis=0)
-        std = np.std(matriz, axis=0)
+    def estadisticas(self, matriz, indice_canal):
+         
+        promedio_total = np.mean(matriz, axis=2) 
+        std_total = np.std(matriz, axis=2)
 
-        plt.figure(figsize=(10, 6))
+        # Extraemos solo el canal que el usuario eligió
+        # Usamos los primeros 500 puntos para que el gráfico 'stem' no se sature
+        señal_promedio = promedio_total[indice_canal, :500]
+        señal_std = std_total[indice_canal, :500]
 
+        plt.figure(figsize=(12, 7))
+
+        # Subplot 1: Promedio
         plt.subplot(2, 1, 1)
-        plt.stem(promedio)
-        plt.title("Promedio")
+        plt.stem(señal_promedio)
+        plt.title(f"Señal Promedio - Canal {indice_canal}")
+        plt.ylabel("µV") # Unidad obligatoria por requerimiento 7b
 
+        # Subplot 2: Desviación Estándar
         plt.subplot(2, 1, 2)
-        plt.stem(std)
-        plt.title("Desviación estándar")
+        plt.stem(señal_std, linefmt='r-', markerfmt='ro') # En rojo para diferenciar
+        plt.title(f"Desviación Estándar - Canal {indice_canal}")
+        plt.ylabel("µV")
 
         plt.tight_layout()
-        plt.savefig("eeg_stats.png")
+        plt.savefig("estadisticas_eeg.png") # Guarda el resultado
         plt.show()
 
 class Gestor:
