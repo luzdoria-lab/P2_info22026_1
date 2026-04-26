@@ -101,6 +101,12 @@ def menu_principal():
                 print(f"Error al cargar MAT: {e}")
 
 
+        elif opcion == "3":
+            # búsqueda y almacenamiento 
+            print("\nObjetos cargados en memoria:")
+            gestor.listar()
+
+
         elif opcion == "4":
             print("Sistema cerrado")
             break
@@ -109,7 +115,8 @@ def menu_principal():
 
         else:
             print("Opción no válida.")
-
+        
+        
 
 if __name__ == "__main__":
         menu_principal()
