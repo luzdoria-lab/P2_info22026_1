@@ -57,5 +57,38 @@ def menu_principal():
             except Exception as e:
                 print(f"Error al cargar CSV: {e}")
 
+        elif opcion == "2":
+            ruta = input("Ingrese la ruta del archivo MAT (ej: control.mat): ")
+            try:
+                eeg_obj = EEG(ruta)
+                gestor.agregar(eeg_obj)
+                
+                # Mostrar llaves 
+                eeg_obj.mostrar_llaves()
+                key = input("Elija la llave de la matriz a trabajar (ej:data): ")
+                matriz = eeg_obj.obtener_matriz(key)
+                
+                while True:
+                    print("\n-Submenú EEG-")
+                    print("1. Sumar 3 canales (2D)")
+                    print("2. Estadísticas Promedio/STD (3D)")
+                    print("3. Volver al menú principal")
+                    
+                    sub = input("Opción: ")
+
+            #excepcion por si no se encuentra el archivo       
+            except Exception as e:
+                print(f"Error al cargar MAT: {e}")
+
+        elif opcion == "4":
+            print("Sistema cerrado")
+            break
+            #salir del sistema
+
+
+        else:
+            print("Opción no válida.")
+
+
 if __name__ == "__main__":
     menu_principal()
